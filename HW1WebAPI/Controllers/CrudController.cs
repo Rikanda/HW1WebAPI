@@ -31,7 +31,12 @@ namespace HW1WebAPI.Controllers
             return Ok(_holder.Get());
         }
 
-
+        [HttpPost("bcreate")]
+        public IActionResult Bcreate([FromBody] Value input)
+        {
+            _holder.Add(input.Temp.ToString());
+            return Ok();
+        }
 
 
 
