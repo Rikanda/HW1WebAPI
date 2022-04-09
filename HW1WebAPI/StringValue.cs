@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -14,11 +11,9 @@ using System.Text.Json.Serialization;
 
 namespace HW1WebAPI
 {
-    public class Value
+    public class StringValue
     {
-        public double Temp { get; set; }
-        public DateTime Date { get; set; }
-
-     
+        public string Temp { get; set; }
+        public string Date { get; set; }
     }
 }

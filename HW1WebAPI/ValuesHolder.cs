@@ -9,7 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 namespace HW1WebAPI
+
 {
     public class ValuesHolder
     {
@@ -17,24 +21,32 @@ namespace HW1WebAPI
         public List<string> values = new List<string>();
 
 
-        public void Add(string value)
+        public void Add(string value, string date)
         {
-
 
             var newValue = new Value
             {
-                Date = DateTime.Now,
-                Temp = Double.Parse(value),
-
+                Date = DateTime.Parse(date),
+                Temp = Double.Parse(value)
             };
+
             Values.Add(newValue);
 
         }
 
+        public void Add(Value value)
+        { Values.Add(value); }
+
+        //public void Add(string json)
+        //{
+        //    Value value = JsonSerializer.Deserialize<Value>(json); - почему-то это не работает
+        //    Values.Add(value);
+        //}
+
         public IList<string> Get()
 
         {
-
+            values.Clear();
             string s = "Start";
             values.Add(s);
             foreach (var value in Values)
@@ -47,5 +59,18 @@ namespace HW1WebAPI
             return values;
 
         }
+
+        public Value FindValueByDate(DateTime d)
+        {
+            Value result = null;
+            foreach(var value in Values)
+            { 
+                if (value.Date == d)  
+                 result = value;
+            }
+            return result;
+        }
+
+       
     }
 }
