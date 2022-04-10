@@ -42,20 +42,6 @@ namespace HW1WebAPI.Controllers
             return Ok();
         }
 
-        [HttpGet("read")] // просмотр всех внесенных температур
-        public IActionResult Read()
-        {
-            return Ok(_holder.Get());
-        }
-
-        [HttpGet("periodread")] // просмотр температур за период времени
-        public IActionResult PeriodRead([FromQuery] string start, [FromQuery] string finish)
-        {
-            return Ok(_holder.PeriodGet(start, finish));
-        }
-
-
-
         [HttpPut("update")] // изменение температуры на определенную дату
 
         public IActionResult Update([FromQuery] string date, [FromQuery] string temp)
@@ -72,9 +58,39 @@ namespace HW1WebAPI.Controllers
             else
             {
                 return NotFound(new { message = "Запись не найдена " });
-            }          
+            }
             return Ok();
         }
+
+        [HttpDelete("delete")] // удаление температур за период времени
+        public IActionResult Delete([FromQuery] string start, [FromQuery] string finish)
+        {
+            _holder.PeriodDelete(start, finish);
+            return Ok(_holder.Get());
+        }
+
+        [HttpDelete("deletetest")] // удаление всех температур
+        public IActionResult Delete()
+        {
+            _holder.Values.Clear();
+            return Ok(_holder.Get());
+        }
+
+        [HttpGet("read")] // просмотр всех внесенных температур
+        public IActionResult Read()
+        {
+            return Ok(_holder.Get());
+        }
+
+        [HttpGet("periodread")] // просмотр температур за период времени
+        public IActionResult PeriodRead([FromQuery] string start, [FromQuery] string finish)
+        {
+            return Ok(_holder.PeriodGet(start, finish));
+        }
+
+
+
+
 
     }
 }

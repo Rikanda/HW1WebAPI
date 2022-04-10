@@ -91,6 +91,24 @@ namespace HW1WebAPI
             return result;
         }
 
+        public void PeriodDelete(string start, string finish)
+        {
+            DateTime sDate = DateTime.Parse(start);
+            DateTime fDate = DateTime.Parse(finish);
+            List<Value> removvalues = new List<Value>();
+            foreach (var value in Values)
+            {
+                if (value.Date <= fDate && value.Date >= sDate)
+                {
+                   removvalues.Add(value);
+                }
+            }
+
+            foreach (var value in removvalues)
+            {
+                Values.Remove(value);
+            }
+        }
        
     }
 }
