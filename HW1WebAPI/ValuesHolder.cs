@@ -60,6 +60,26 @@ namespace HW1WebAPI
 
         }
 
+        public IList<string> PeriodGet(string start, string finish)
+        {
+            values.Clear();
+            string s = "Start";
+            values.Add(s);
+            DateTime sDate = DateTime.Parse(start);
+            DateTime fDate = DateTime.Parse(finish);
+            foreach (var value in Values)
+            {
+                if (value.Date <= fDate && value.Date >= sDate)
+                {
+                    string result = "t: " + value.Temp.ToString() + " date: " + value.Date.ToString();
+                    values.Add(result);
+                }
+            }
+            return values;
+
+        }
+
+
         public Value FindValueByDate(DateTime d)
         {
             Value result = null;

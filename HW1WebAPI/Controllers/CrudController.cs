@@ -19,38 +19,44 @@ namespace HW1WebAPI.Controllers
             _holder = holder;
         }
 
-        [HttpPost("create")]
+        [HttpPost("create")] // создание новой записи, параметры в запросе
         public IActionResult Create([FromQuery] string input, [FromQuery] string date)
         {
             _holder.Add(input, date);
             return Ok();
         }
 
-        [HttpGet("read")]
-        public IActionResult Read()
-        {
-            return Ok(_holder.Get());
-        }
-
-        [HttpPost("bcreate")]
-        //public IActionResult Bcreate([FromBody] JsonElement input)
+        [HttpPost("bcreate")] // создание новой записи, параметры в json
+        //public IActionResult Bcreate([FromBody] JsonElement input) 
         //{
-
         //    string json = JsonSerializer.Serialize(input);
-        //   _holder.Add(json);
+        //   _holder.Add(json); - не работает метод
         //    return Ok(json);
         //}
 
         public IActionResult Bcreate([FromBody] StringValue input)
         {
-           
+
             _holder.Add(input.Temp, input.Date);
 
             return Ok();
         }
 
+        [HttpGet("read")] // просмотр всех внесенных температур
+        public IActionResult Read()
+        {
+            return Ok(_holder.Get());
+        }
 
-        [HttpPut("update")]
+        [HttpGet("periodread")] // просмотр температур за период времени
+        public IActionResult PeriodRead([FromQuery] string start, [FromQuery] string finish)
+        {
+            return Ok(_holder.PeriodGet(start, finish));
+        }
+
+
+
+        [HttpPut("update")] // изменение температуры на определенную дату
 
         public IActionResult Update([FromQuery] string date, [FromQuery] string temp)
         {
@@ -66,9 +72,7 @@ namespace HW1WebAPI.Controllers
             else
             {
                 return NotFound(new { message = "Запись не найдена " });
-            }
-           
-
+            }          
             return Ok();
         }
 
