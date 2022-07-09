@@ -17,7 +17,7 @@ namespace HW1WebAPI.Controllers
             return Ok();
         }
         [HttpPut("enable/{agentId}")]
-        public IActionResult EnableAgentById([FromRoute] int agentId
+        public IActionResult EnableAgentById([FromRoute] int agentId)
         {
             return Ok();
         }
